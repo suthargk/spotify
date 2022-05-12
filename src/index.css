@@ -18,16 +18,31 @@ html {
 body {
     height: 100%;
     /* background-color: #111; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #fff;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #root {
     height: 100%;
-    padding: 5px;
+    width: 100%;
+    /* padding: 5px; */
 }
 
 .navigation-item[data-active="true"] {
     background-color: rgb(34 197 94);
     border: 1.5px solid rgb(22 163 74);
+}
+
+.loading {
+    color: #fff;
+    animation:  2s linear 0s infinite normal none running Spinner;
+}
+
+@keyframes Spinner {
+    100% {
+        transform: rotate(360deg);
+    }
 }

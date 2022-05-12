@@ -2,13 +2,10 @@ import React from "react";
 import Navigation from "./Navigation";
 
 const NavigationList = ({
-  navigation_list: { error, loading, data },
+  navigation_list: {data},
   onPlayListSelect,
   isActive,
 }) => {
-
-  if (loading) return <div>spinner</div>;
-  if (error) return <div>Something went wrong</div>;
 
   return (
     <div className="h-20 overflow-hidden p-4 pb-0">

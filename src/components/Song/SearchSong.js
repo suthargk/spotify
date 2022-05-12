@@ -18,7 +18,7 @@ const SearchSong = ({
             placeholder="Search Song, Artist"
           ></input>
           <button type="submit">
-            <SearchIcon className="h-5 w-5 text-gray-400" />
+            <SearchIcon className="h-5 w-5 mr-1 text-gray-400" />
           </button>
         </div>
       </form>
