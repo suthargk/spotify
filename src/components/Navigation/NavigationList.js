@@ -1,12 +1,12 @@
-import React from "react";
+import React, {memo} from "react";
 import Navigation from "./Navigation";
 
-const NavigationList = ({
+const NavigationList = memo(({
   navigation_list: {data},
   onPlayListSelect,
   isActive,
 }) => {
-
+console.log("H")
   return (
     <div className="h-20 overflow-hidden p-4 pb-0">
       <ul className="box-content pb-2 mt-4 space-x-2 h-full overflow-x-scroll overflow-y-hidden whitespace-nowrap w-full">
@@ -21,6 +21,6 @@ const NavigationList = ({
       </ul>
     </div>
   );
-};
+});
 
 export default NavigationList;

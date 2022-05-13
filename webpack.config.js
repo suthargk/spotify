@@ -25,4 +25,7 @@ module.exports = {
     }),
   ],
   mode: "development",
+  devServer: {
+    allowedHosts: ['.loca.lt']
+}
 };

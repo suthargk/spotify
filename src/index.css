@@ -5,44 +5,83 @@
 *,
 *::after,
 *::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 
 html {
-    height: 100%;
-    box-sizing: border-box;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 body {
-    height: 100%;
-    /* background-color: #111; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  height: 100%;
+  /* background-color: #111; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 #root {
-    height: 100%;
-    width: 100%;
-    /* padding: 5px; */
+  height: 100%;
+  width: 100%;
+  /* padding: 5px; */
 }
 
 .navigation-item[data-active="true"] {
-    background-color: rgb(34 197 94);
-    border: 1.5px solid rgb(22 163 74);
+  background-color: rgb(34 197 94);
+  border: 1.5px solid rgb(22 163 74);
+}
+
+.song-item[data-active="true"] {
+    background-color: rgb(55 65 81);
+    border-radius: 5px;
 }
 
 .loading {
-    color: #fff;
-    animation:  2s linear 0s infinite normal none running Spinner;
+  color: #fff;
+  animation: 2s linear 0s infinite normal none running Spinner;
 }
 
 @keyframes Spinner {
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.maximize-player {
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.maximize-player[data-active="true"] {
+ 
+  animation: cubic-bezier(0.3, 0, 0, 1) 0.2s 1 normal forwards running
+    MoveUpward;
+}
+
+.maximize-player[data-active="false"] {
+  animation: cubic-bezier(0.3, 0, 0, 1) 0.2s 1 normal forwards running
+    MoveDownward;
+}
+
+@keyframes MoveUpward {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes MoveDownward {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
 }

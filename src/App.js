@@ -5,7 +5,8 @@ import { GET_PLAYLISTS } from "./hooks/navigations";
 import NavigationList from "./components/Navigation/NavigationList";
 import SearchSong from "./components/Song/SearchSong";
 import SongList from "./components/Song/SongList";
-import OngoingSong from "./components/OngoingSong/OngoingSong";
+import MinimizePlayer from "./components/Player/MinimizePlayer";
+import MaximizePlayer from "./components/Player/MaximizePlayer";
 
 const App = () => {
   const playLists = useQuery(GET_PLAYLISTS);
@@ -19,15 +20,25 @@ const App = () => {
     );
   });
   const [currentSong, setCurrentSong] = useState({});
+  
+  const [isPlayerMaximize, setIsPlayerMaximize] = useState(false);
 
-  const onPlayListSelect = (playListName) => {
+  const onPlayListSelect = useCallback((playListName) => {
     setIsActive(playListName);
-  };
+  }, [isActive]);
 
   const onSongSelected = (songDetails) => {
     setCurrentSong(songDetails);
   };
-console.log(playLists)
+
+  const toPrevTrack = () => {
+    
+  }
+
+  const toNextTrack = () => {
+
+  }
+
   if (playLists.loading)
     return (
       <div className="flex justify-center items-center h-full w-full">
@@ -36,15 +47,28 @@ console.log(playLists)
     );
 
   return (
-    <div className="bg-gray-900 rounded-md shadow-md">
+    <div className="bg-gray-900 rounded-md shadow-md relative">
       <NavigationList
         navigation_list={playLists}
         isActive={isActive}
         onPlayListSelect={onPlayListSelect}
       />
       <SearchSong />
-      <SongList isActive={isActive} onSongSelected={onSongSelected} />
-      <OngoingSong currentSong={currentSong} />
+      <SongList isActive={isActive} onSongSelected={onSongSelected} selectedSong={currentSong} />
+
+      {isPlayerMaximize && currentSong ? (
+        <MaximizePlayer
+          isPlayerMaximize={isPlayerMaximize}
+          onPlayerMaximize={setIsPlayerMaximize}
+        />
+      ) : (
+        <MinimizePlayer
+          onPlayerMaximize={setIsPlayerMaximize}
+          currentSong={currentSong}
+          onPrevTrack={toPrevTrack}
+          onNextTrack={toNextTrack}
+        />
+      )}
     </div>
   );
 };
