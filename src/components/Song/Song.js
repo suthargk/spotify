@@ -1,5 +1,4 @@
 import React from "react";
-import Demons from "../../assets/images/Demons.jpg";
 import SongDetails from "./SongDetails";
 
 const Song = ({
