@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import PlayIcon from "../../icon/PlayIcon";
-
+import PauseMinimizeIcon from "../../icon/PauseMinimizeIcon";
+import PlayMinimizeIcon from "../../icon/PlayMinimizeIcon";
 const OngoingSong = ({
   currentSong: { artist, duration, photo, title, url },
   onPlayerMaximize,
-  onPrevTrack,
-  onNextTrack
+  // onPrevTrack,
+  // onNextTrack
+  onPlaying,
+  isPlaying,
+
 }) => {
   return (
     <div className="ongoing-song fixed bottom-0 rounded-md left-0 h-14 w-full bg-gray-800">
@@ -27,13 +30,12 @@ const OngoingSong = ({
           </div>
         </div>
         <div className="mr-4 flex flex-row-reverse w-1/12">
-          <button type="button" onClick={onPrevTrack}>
-            Prev
-          </button>
-          <button className="text-gray-400">
-            <PlayIcon />
-          </button>
-          <button type="button" onClick={onNextTrack}>Next</button>
+        <button type="button" onClick={() => {
+          console.log(isPlaying)
+          onPlaying(!isPlaying)
+        }}>
+            {isPlaying ?  <PauseMinimizeIcon /> : <PlayMinimizeIcon />}
+        </button>
         </div>
       </div>
     </div>

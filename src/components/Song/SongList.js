@@ -1,12 +1,8 @@
 import React, {useState} from "react";
 import Song from "./Song";
 import LoadingIcon from "../../icon/LoadingIcon";
-import { useSongs } from "../../hooks/useSongs";
 
-
-const SongList = ({ isActive, onSongSelected, selectedSong }) => {
-  const { error, loading, data } = useSongs(isActive.id);
-
+const SongList = ({ isActive, onSongSelected, selectedSong, songsList: {loading, error, data} }) => {
   if (loading)
     return (
       <div className="flex justify-center items-center h-full w-full">

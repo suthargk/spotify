@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import LoadingIcon from "./icon/LoadingIcon";
 import { useQuery } from "@apollo/client";
 import { GET_PLAYLISTS } from "./hooks/navigations";
+import { useSongs } from "./hooks/useSongs";
 import NavigationList from "./components/Navigation/NavigationList";
 import SearchSong from "./components/Song/SearchSong";
 import SongList from "./components/Song/SongList";
@@ -19,25 +20,51 @@ const App = () => {
       }
     );
   });
+  const songs = useSongs(isActive.id);
+  const [isPlaying, setIsPlaying] = useState(false)
   const [currentSong, setCurrentSong] = useState({});
-  
   const [isPlayerMaximize, setIsPlayerMaximize] = useState(false);
 
-  const onPlayListSelect = useCallback((playListName) => {
-    setIsActive(playListName);
-  }, [isActive]);
+  const onPlayListSelect = useCallback(
+    (playListName) => {
+      setIsActive(playListName);
+    },
+    [isActive]
+  );
 
   const onSongSelected = (songDetails) => {
     setCurrentSong(songDetails);
   };
 
-  const toPrevTrack = () => {
-    
-  }
+  const toFindPrevAndNextTrack = useCallback(() => {
+    const songsData = songs.data.getSongs;
+    let index = songsData.findIndex((song) => song._id === currentSong._id);
+    return [index, songsData]
+  }, [currentSong])
 
-  const toNextTrack = () => {
+  const toPrevTrack = useCallback(() => {
+    let [index, songsData] = toFindPrevAndNextTrack()
+    setCurrentSong(() => {
+      const prevIndex = index - 1;
+      if (prevIndex > -1) {
+        return songsData[prevIndex];
+      } else {
+        index = songsData.length;
+      }
+    });
+  }, [currentSong]);
 
-  }
+  const toNextTrack = useCallback(() => {
+    let [index, songsData] = toFindPrevAndNextTrack()
+    setCurrentSong(() => {
+      const nextIndex = index + 1
+      if(nextIndex < songsData.length) {
+        return songsData[nextIndex];
+      } else {
+        index = -1
+      }
+    })
+  }, [currentSong]);
 
   if (playLists.loading)
     return (
@@ -54,19 +81,29 @@ const App = () => {
         onPlayListSelect={onPlayListSelect}
       />
       <SearchSong />
-      <SongList isActive={isActive} onSongSelected={onSongSelected} selectedSong={currentSong} />
+      <SongList
+        isActive={isActive}
+        songsList={songs}
+        onSongSelected={onSongSelected}
+        selectedSong={currentSong}
+      />
 
       {isPlayerMaximize && currentSong ? (
         <MaximizePlayer
           isPlayerMaximize={isPlayerMaximize}
           onPlayerMaximize={setIsPlayerMaximize}
+          currentSong={currentSong}
+          onPrevTrack={toPrevTrack}
+          onNextTrack={toNextTrack}
+          isPlaying={isPlaying}
+          onPlaying={setIsPlaying}
         />
       ) : (
         <MinimizePlayer
           onPlayerMaximize={setIsPlayerMaximize}
           currentSong={currentSong}
-          onPrevTrack={toPrevTrack}
-          onNextTrack={toNextTrack}
+          isPlaying={isPlaying}
+          onPlaying={setIsPlaying}
         />
       )}
     </div>

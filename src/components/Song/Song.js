@@ -2,7 +2,7 @@ import React from "react";
 import SongDetails from "./SongDetails";
 
 const Song = ({
-  song: { artist, duration, photo, title, url },
+  song: { artist, duration, photo, title, url, _id },
   onSongSelected,
   selectedSong,
 }) => {
@@ -10,7 +10,7 @@ const Song = ({
   return (
     <li data-active={selectedSong.title === title}
       className="song-item style-none cursor-pointer p-2"
-      onClick={() => onSongSelected({ artist, duration, photo, title, url })}
+      onClick={() => onSongSelected({ artist, duration, photo, title, url, _id })}
     >
       <div className="flex justify-between items-center">
         <SongDetails artist={artist} photo={photo} title={title} />
