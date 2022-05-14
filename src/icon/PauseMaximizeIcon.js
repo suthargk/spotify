@@ -3,13 +3,13 @@ import React from "react";
 const PauseMaximizeIcon = () => {
   return (
     <svg
-      width="49"
+      width="48"
       height="49"
-      viewBox="0 0 49 49"
+      viewBox="0 0 48 49"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="24.5" cy="24.5" r="24.5" fill="white" />
+      <circle cx="24" cy="24.5" r="24" fill="white" />
       <rect
         x="14.75"
         y="14.125"

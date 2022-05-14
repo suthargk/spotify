@@ -17,7 +17,7 @@ const MaximizePlayer = ({
       className="maximize-player h-full w-full bg-gray-800 flex flex-col justify-center p-5"
     >
       <div className="mb-12" onClick={() => onPlayerMaximize(false)}>
-        <div className="mb-16 shadow-xl">
+        <div className="mb-14 shadow-xl">
           <img src={photo} className="w-full h-auto" />
         </div>
         <div className="text-3xl font-semibold mb-2">{title}</div>

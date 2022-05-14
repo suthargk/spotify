@@ -6,7 +6,6 @@ const NavigationList = memo(({
   onPlayListSelect,
   isActive,
 }) => {
-console.log("H")
   return (
     <div className="h-20 overflow-hidden p-4 pb-0">
       <ul className="box-content pb-2 mt-4 space-x-2 h-full overflow-x-scroll overflow-y-hidden whitespace-nowrap w-full">

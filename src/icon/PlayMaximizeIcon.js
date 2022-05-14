@@ -21,7 +21,7 @@ const PlayMaximizeIcon = () => {
         <clipPath id="clip0_1_39">
           <rect
             width="48"
-            height="48"
+            height="49"
             fill="white"
             transform="translate(0 0.120483)"
           />

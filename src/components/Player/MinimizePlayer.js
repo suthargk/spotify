@@ -4,8 +4,6 @@ import PlayMinimizeIcon from "../../icon/PlayMinimizeIcon";
 const OngoingSong = ({
   currentSong: { artist, duration, photo, title, url },
   onPlayerMaximize,
-  // onPrevTrack,
-  // onNextTrack
   onPlaying,
   isPlaying,
 
@@ -30,10 +28,7 @@ const OngoingSong = ({
           </div>
         </div>
         <div className="mr-4 flex flex-row-reverse w-1/12">
-        <button type="button" onClick={() => {
-          console.log(isPlaying)
-          onPlaying(!isPlaying)
-        }}>
+        <button type="button" onClick={() => onPlaying(!isPlaying)}>
             {isPlaying ?  <PauseMinimizeIcon /> : <PlayMinimizeIcon />}
         </button>
         </div>

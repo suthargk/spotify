@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import LoadingIcon from "./icon/LoadingIcon";
 import { useQuery } from "@apollo/client";
 import { GET_PLAYLISTS } from "./hooks/navigations";
@@ -38,33 +38,71 @@ const App = () => {
 
   const toFindPrevAndNextTrack = useCallback(() => {
     const songsData = songs.data.getSongs;
-    let index = songsData.findIndex((song) => song._id === currentSong._id);
+    const index = songsData.findIndex((song) => song._id === currentSong._id);
     return [index, songsData]
   }, [currentSong])
 
   const toPrevTrack = useCallback(() => {
-    let [index, songsData] = toFindPrevAndNextTrack()
+    let [index, songsData] = toFindPrevAndNextTrack() 
+
     setCurrentSong(() => {
       const prevIndex = index - 1;
       if (prevIndex > -1) {
         return songsData[prevIndex];
       } else {
-        index = songsData.length;
+        return songsData[songsData.length - 1]
       }
     });
-  }, [currentSong]);
+  }, [currentSong])
+
 
   const toNextTrack = useCallback(() => {
-    let [index, songsData] = toFindPrevAndNextTrack()
+    let [index, songsData] = toFindPrevAndNextTrack() 
     setCurrentSong(() => {
       const nextIndex = index + 1
       if(nextIndex < songsData.length) {
         return songsData[nextIndex];
       } else {
-        index = -1
+        return songsData[songsData.length - nextIndex]
       }
     })
+  }, [currentSong])
+
+  const audioRef = useRef(new Audio(currentSong?.url));
+  const [trackProgress, setTrackProgress] = useState(0);
+  const intervalRef = useRef();
+  const isReady = useRef(false);
+  const { duration } = audioRef.current;
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
+
+  useEffect(() => {
+    return () => {
+      audioRef.current.pause();
+      clearInterval(intervalRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    audioRef.current.pause();
+    audioRef.current = new Audio(currentSong?.url);
+    setTrackProgress(audioRef.current.currentTime);
+
+    if (isReady) {
+      audioRef.current.play();
+      setIsPlaying(true);
+      // startTimer();
+    } else {
+      isReady.current = true;
+    }
   }, [currentSong]);
+
 
   if (playLists.loading)
     return (
@@ -82,7 +120,6 @@ const App = () => {
       />
       <SearchSong />
       <SongList
-        isActive={isActive}
         songsList={songs}
         onSongSelected={onSongSelected}
         selectedSong={currentSong}
