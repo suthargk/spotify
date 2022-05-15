@@ -67,19 +67,56 @@ const App = () => {
     });
   }, [currentSong]);
 
+
+
   const audioRef = useRef(new Audio(currentSong?.url));
   const [trackProgress, setTrackProgress] = useState(0);
   const intervalRef = useRef();
   const isReady = useRef(false);
   const { duration } = audioRef.current;
 
+  const startTimer = () => {
+    // Clear any timers already running
+    clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      if (audioRef.current.ended) {
+        toNextTrack();
+      } else {
+        setTrackProgress(audioRef.current.currentTime);
+      }
+    }, [1000]);
+  };
+
+  const onScrub = (value) => {
+    // Clear any timers already running
+    clearInterval(intervalRef.current);
+    audioRef.current.currentTime = value;
+    setTrackProgress(audioRef.current.currentTime);
+  };
+
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
+      startTimer();
     } else {
       audioRef.current.pause();
     }
   }, [isPlaying]);
+
+  useEffect(() => {
+    audioRef.current.pause();
+    audioRef.current = new Audio(currentSong?.url);
+    setTrackProgress(audioRef.current.currentTime);
+
+    if (isReady.current) {
+      audioRef.current.play();
+      setIsPlaying(true);
+      startTimer();
+    } else {
+      isReady.current = true;
+    }
+  }, [currentSong]);
 
   useEffect(() => {
     return () => {
@@ -87,20 +124,6 @@ const App = () => {
       clearInterval(intervalRef.current);
     };
   }, []);
-
-  useEffect(() => {
-    audioRef.current.pause();
-    audioRef.current = new Audio(currentSong?.url);
-    setTrackProgress(audioRef.current.currentTime);
-
-    if (isReady) {
-      audioRef.current.play();
-      setIsPlaying(true);
-      // startTimer();
-    } else {
-      isReady.current = true;
-    }
-  }, [currentSong]);
 
   if (playLists.loading)
     return (
@@ -137,6 +160,9 @@ const App = () => {
             onNextTrack={toNextTrack}
             isPlaying={isPlaying}
             onPlaying={setIsPlaying}
+            trackProgress={trackProgress}
+            duration={duration}
+            onScrub={onScrub}
           />
         ) : (
           <MinimizePlayer
