@@ -25,11 +25,11 @@ const App = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState({});
   const [isPlayerMaximize, setIsPlayerMaximize] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('')
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+    setSearchTerm(event.target.value)
+  }
 
   const onPlayListSelect = useCallback(
     (playListName) => {
@@ -132,6 +132,7 @@ const App = () => {
     };
   }, []);
 
+
   if (playLists.loading)
     return (
       <div className="flex items-center h-full w-full">
@@ -151,19 +152,16 @@ const App = () => {
           onPlayListSelect={onPlayListSelect}
         />
       </div>
-      <div>
-        <div className="hidden lg:block text-2xl font-semibold tracking-wide">
-          {isActive.title}
-        </div>
-        <SearchSong searchTerm={searchTerm} onHandleChange={handleChange} />
-        <div className="body lg:basis-2/6 flex flex-1 overflow-y-auto w-full lg:flex-col lg:space-y-6">
-          <SongList
-            songsList={songs}
-            onSongSelected={onSongSelected}
-            selectedSong={currentSong}
-          />
-        </div>
+      <SearchSong searchTerm={searchTerm} onHandleChange={handleChange}/>
+      <div className="body lg:basis-2/6 flex flex-1 overflow-y-auto w-full lg:flex-col lg:space-y-6">
+        <div className="hidden lg:block text-2xl font-semibold tracking-wide">{isActive.title}</div>
+        <SongList
+          songsList={songs}
+          onSongSelected={onSongSelected}
+          selectedSong={currentSong}
+        />
       </div>
+
       <div className="footer lg:basis-3/6">
         {isPlayerMaximize && currentSong ? (
           <MaximizePlayer
@@ -177,6 +175,7 @@ const App = () => {
             trackProgress={trackProgress}
             duration={duration}
             onScrub={onScrub}
+
           />
         ) : (
           <MinimizePlayer
