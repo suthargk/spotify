@@ -9,7 +9,7 @@ const Song = ({
   const durationStr = duration.toString();
   return (
     <li data-active={selectedSong.title === title}
-      className="song-item style-none cursor-pointer p-2"
+      className="song-item style-none cursor-pointer p-2 lg:hover:bg-gray-800 lg:hover:rounded-md"
       onClick={() => onSongSelected({ artist, duration, photo, title, url, _id })}
     >
       <div className="flex justify-between items-center">

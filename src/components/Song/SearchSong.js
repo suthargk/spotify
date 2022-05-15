@@ -5,6 +5,8 @@ const SearchSong = ({
   onSearchSongSubmit = (f) => f,
   id = "search",
   type = "text",
+  searchTerm,
+  onHandleChange
 }) => {
   return (
     <div className="w-full p-4 pt-0 my-4">
@@ -14,6 +16,8 @@ const SearchSong = ({
           <input
             className="w-full bg-transparent border-none focus:outline-none text-gray-200 p-1"
             id={id}
+            value={searchTerm}
+            onChange={onHandleChange}
             type={type}
             placeholder="Search Song, Artist"
           ></input>

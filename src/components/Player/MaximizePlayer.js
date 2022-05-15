@@ -17,25 +17,32 @@ const MaximizePlayer = ({
   return (
     <div
       data-active={isPlayerMaximize}
-      className="maximize-player h-full w-full bg-gray-800 flex flex-col justify-center p-5 space-y-6"
+      className="maximize-player h-full w-full bg-gray-800 p-5 flex flex-col justify-center"
     >
-      <div onClick={() => onPlayerMaximize(false)}>
-        <div className="mb-14 shadow-xl">
-          <img src={photo} className="w-full h-auto" />
+      <div className="w-11/12 mx-auto space-y-6">
+        <div onClick={() => onPlayerMaximize(false)}>
+          <div className="mb-12 shadow-xl relative overflow-hidden aspect-box">
+            <span className="block absolute top-0 left-0 w-full h-full">
+              <img
+                src={photo}
+                className="block w-full h-full object-cover object-center"
+              />
+            </span>
+          </div>
+          <div className="text-3xl font-semibold mb-2">{title}</div>
+          <div className="text-base font-semibold">{artist}</div>
         </div>
-        <div className="text-3xl font-semibold mb-2">{title}</div>
-        <div className="text-base font-semibold">{artist}</div>
-      </div>
-      <div>
-        <AudioControl
-          onPrevTrack={onPrevTrack}
-          onNextTrack={onNextTrack}
-          isPlaying={isPlaying}
-          onPlaying={onPlaying}
-          trackProgress={trackProgress}
-          duration={duration}
-          onScrub={onScrub}
-        />
+        <div className="">
+          <AudioControl
+            onPrevTrack={onPrevTrack}
+            onNextTrack={onNextTrack}
+            isPlaying={isPlaying}
+            onPlaying={onPlaying}
+            trackProgress={trackProgress}
+            duration={duration}
+            onScrub={onScrub}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import LoadingIcon from "./icon/LoadingIcon";
+import Logo from "./icon/Logo";
 import { useQuery } from "@apollo/client";
 import { GET_PLAYLISTS } from "./hooks/navigations";
 import { useSongs } from "./hooks/useSongs";
@@ -24,6 +25,11 @@ const App = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState({});
   const [isPlayerMaximize, setIsPlayerMaximize] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   const onPlayListSelect = useCallback(
     (playListName) => {
@@ -67,16 +73,13 @@ const App = () => {
     });
   }, [currentSong]);
 
-
-
-  const audioRef = useRef(new Audio(currentSong?.url));
   const [trackProgress, setTrackProgress] = useState(0);
+  const audioRef = useRef(new Audio(currentSong?.url));
   const intervalRef = useRef();
   const isReady = useRef(false);
   const { duration } = audioRef.current;
 
   const startTimer = () => {
-    // Clear any timers already running
     clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
@@ -104,8 +107,10 @@ const App = () => {
     }
   }, [isPlaying]);
 
+  // Handles cleanup and setup when changing tracks
   useEffect(() => {
     audioRef.current.pause();
+
     audioRef.current = new Audio(currentSong?.url);
     setTrackProgress(audioRef.current.currentTime);
 
@@ -114,11 +119,13 @@ const App = () => {
       setIsPlaying(true);
       startTimer();
     } else {
+      // Set the isReady ref as true for the next pass
       isReady.current = true;
     }
   }, [currentSong]);
 
   useEffect(() => {
+    // Pause and clean up on unmount
     return () => {
       audioRef.current.pause();
       clearInterval(intervalRef.current);
@@ -127,30 +134,37 @@ const App = () => {
 
   if (playLists.loading)
     return (
-      <div className="flex justify-center items-center h-full w-full">
+      <div className="flex items-center h-full w-full">
         <LoadingIcon />
       </div>
     );
 
   return (
-    <div className="bg-gray-900 rounded-md shadow-md relative h-full flex flex-col">
-      <div className="header">
+    <div className="bg-gray-900 rounded-md lg:rounded-none shadow-md relative h-full flex flex-col lg:flex-row lg:p-8 lg:pb-0 lg:space-x-12">
+      <div className="header lg:basis-1/6">
+        <div className="hidden lg:block">
+          <Logo />
+        </div>
         <NavigationList
           navigation_list={playLists}
           isActive={isActive}
           onPlayListSelect={onPlayListSelect}
         />
-        <SearchSong />
       </div>
-      <div className="body flex flex-1 overflow-y-auto w-full">
-        <SongList
-          songsList={songs}
-          onSongSelected={onSongSelected}
-          selectedSong={currentSong}
-        />
+      <div>
+        <div className="hidden lg:block text-2xl font-semibold tracking-wide">
+          {isActive.title}
+        </div>
+        <SearchSong searchTerm={searchTerm} onHandleChange={handleChange} />
+        <div className="body lg:basis-2/6 flex flex-1 overflow-y-auto w-full lg:flex-col lg:space-y-6">
+          <SongList
+            songsList={songs}
+            onSongSelected={onSongSelected}
+            selectedSong={currentSong}
+          />
+        </div>
       </div>
-
-      <div className="footer">
+      <div className="footer lg:basis-3/6">
         {isPlayerMaximize && currentSong ? (
           <MaximizePlayer
             isPlayerMaximize={isPlayerMaximize}

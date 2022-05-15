@@ -15,26 +15,19 @@ const AudioControl = ({
   duration,
   onScrub,
 }) => {
-  const currentPercentage = duration
-    ? `${(trackProgress / duration) * 100}%`
-    : "0%";
-  const trackStyling = `
-    -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
-  `;
-
   return (
     <div className="w-full space-y-4">
       <div>
-        <input
+      <input
           type="range"
           value={trackProgress}
           step="1"
           min="0"
           max={duration ? duration : `${duration}`}
-          className="range w-full h-1 border-md"
+          className="w-full h-1"
           onChange={(e) => onScrub(e.target.value)}
-          style={{ background: trackStyling }}
         />
+
       </div>
       <div className="flex justify-between items-center">
         <div>
