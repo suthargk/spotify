@@ -9,7 +9,7 @@ const OngoingSong = ({
 
 }) => {
   return (
-    <div className="ongoing-song fixed bottom-0 rounded-md left-0 h-14 w-full bg-gray-800">
+    <div className="ongoing-song rounded-md h-14 w-full bg-gray-800">
       <div className="flex justify-between items-center">
         <div
           className="flex items-center space-x-4 w-11/12"

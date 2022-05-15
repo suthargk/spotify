@@ -5,22 +5,18 @@ import LoadingIcon from "../../icon/LoadingIcon";
 const SongList = ({ onSongSelected, selectedSong, songsList: {loading, error, data} }) => {
   if (loading)
     return (
-      <div className="flex justify-center items-center h-full w-full">
+      <div className="flex flex-1 justify-center items-center w-full">
         <LoadingIcon />
       </div>
     );
   return (
-    <div className="">
       <ul
-        style={{ height: "680px" }}
-        className="overflow-y-scroll p-4 pt-0 space-y-4"
+        className="overflow-y-scroll p-4 pt-0 space-y-4 w-full"
       >
         {data?.getSongs?.map((song) => (
           <Song onSongSelected={onSongSelected} key={song._id} song={song} selectedSong={selectedSong}/>
         ))}
-        <li className="h-10"></li>
       </ul>
-    </div>
   );
 };
 

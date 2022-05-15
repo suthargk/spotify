@@ -21,7 +21,7 @@ const App = () => {
     );
   });
   const songs = useSongs(isActive.id);
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState({});
   const [isPlayerMaximize, setIsPlayerMaximize] = useState(false);
 
@@ -39,34 +39,33 @@ const App = () => {
   const toFindPrevAndNextTrack = useCallback(() => {
     const songsData = songs.data.getSongs;
     const index = songsData.findIndex((song) => song._id === currentSong._id);
-    return [index, songsData]
-  }, [currentSong])
+    return [index, songsData];
+  }, [currentSong]);
 
   const toPrevTrack = useCallback(() => {
-    let [index, songsData] = toFindPrevAndNextTrack() 
+    let [index, songsData] = toFindPrevAndNextTrack();
 
     setCurrentSong(() => {
       const prevIndex = index - 1;
       if (prevIndex > -1) {
         return songsData[prevIndex];
       } else {
-        return songsData[songsData.length - 1]
+        return songsData[songsData.length - 1];
       }
     });
-  }, [currentSong])
-
+  }, [currentSong]);
 
   const toNextTrack = useCallback(() => {
-    let [index, songsData] = toFindPrevAndNextTrack() 
+    let [index, songsData] = toFindPrevAndNextTrack();
     setCurrentSong(() => {
-      const nextIndex = index + 1
-      if(nextIndex < songsData.length) {
+      const nextIndex = index + 1;
+      if (nextIndex < songsData.length) {
         return songsData[nextIndex];
       } else {
-        return songsData[songsData.length - nextIndex]
+        return songsData[songsData.length - nextIndex];
       }
-    })
-  }, [currentSong])
+    });
+  }, [currentSong]);
 
   const audioRef = useRef(new Audio(currentSong?.url));
   const [trackProgress, setTrackProgress] = useState(0);
@@ -103,7 +102,6 @@ const App = () => {
     }
   }, [currentSong]);
 
-
   if (playLists.loading)
     return (
       <div className="flex justify-center items-center h-full w-full">
@@ -112,37 +110,43 @@ const App = () => {
     );
 
   return (
-    <div className="bg-gray-900 rounded-md shadow-md relative">
-      <NavigationList
-        navigation_list={playLists}
-        isActive={isActive}
-        onPlayListSelect={onPlayListSelect}
-      />
-      <SearchSong />
-      <SongList
-        songsList={songs}
-        onSongSelected={onSongSelected}
-        selectedSong={currentSong}
-      />
+    <div className="bg-gray-900 rounded-md shadow-md relative h-full flex flex-col">
+      <div className="header">
+        <NavigationList
+          navigation_list={playLists}
+          isActive={isActive}
+          onPlayListSelect={onPlayListSelect}
+        />
+        <SearchSong />
+      </div>
+      <div className="body flex flex-1 overflow-y-auto w-full">
+        <SongList
+          songsList={songs}
+          onSongSelected={onSongSelected}
+          selectedSong={currentSong}
+        />
+      </div>
 
-      {isPlayerMaximize && currentSong ? (
-        <MaximizePlayer
-          isPlayerMaximize={isPlayerMaximize}
-          onPlayerMaximize={setIsPlayerMaximize}
-          currentSong={currentSong}
-          onPrevTrack={toPrevTrack}
-          onNextTrack={toNextTrack}
-          isPlaying={isPlaying}
-          onPlaying={setIsPlaying}
-        />
-      ) : (
-        <MinimizePlayer
-          onPlayerMaximize={setIsPlayerMaximize}
-          currentSong={currentSong}
-          isPlaying={isPlaying}
-          onPlaying={setIsPlaying}
-        />
-      )}
+      <div className="footer">
+        {isPlayerMaximize && currentSong ? (
+          <MaximizePlayer
+            isPlayerMaximize={isPlayerMaximize}
+            onPlayerMaximize={setIsPlayerMaximize}
+            currentSong={currentSong}
+            onPrevTrack={toPrevTrack}
+            onNextTrack={toNextTrack}
+            isPlaying={isPlaying}
+            onPlaying={setIsPlaying}
+          />
+        ) : (
+          <MinimizePlayer
+            onPlayerMaximize={setIsPlayerMaximize}
+            currentSong={currentSong}
+            isPlaying={isPlaying}
+            onPlaying={setIsPlaying}
+          />
+        )}
+      </div>
     </div>
   );
 };
