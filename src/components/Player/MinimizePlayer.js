@@ -9,14 +9,14 @@ const OngoingSong = ({
 
 }) => {
   return (
-    <div className="ongoing-song rounded-md h-14 w-full bg-gray-800">
+    <div className="lg:hidden rounded-md h-14 w-full bg-gray-800">
       <div className="flex justify-between items-center">
         <div
-          className="flex items-center space-x-4 w-11/12"
+          className="flex items-center h-full space-x-4 w-11/12"
           onClick={() => onPlayerMaximize(true)}
         >
-          <div className="">
-            <img src={photo} className="h-auto w-14" alt={title} />
+          <div className="h-full">
+            <img src={photo} className="h-14 w-14" alt={title} />
           </div>
           <div className="flex flex-col">
             <span className="text-gray-100 text-sm font-light capitalize tracking-wider">

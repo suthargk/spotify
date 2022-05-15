@@ -29,7 +29,6 @@ body {
 #root {
   height: 100%;
   width: 100%;
-  /* padding: 5px; */
 }
 
 .navigation-item[data-active="true"] {
@@ -52,19 +51,10 @@ body {
     transform: rotate(360deg);
   }
 }
-.maximize-player {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
+
 .maximize-player[data-active="true"] {
   animation: cubic-bezier(0.3, 0, 0, 1) 0.2s 1 normal forwards running
     MoveUpward;
-}
-
-.maximize-player[data-active="false"] {
-  animation: cubic-bezier(0.3, 0, 0, 1) 0.2s 1 normal forwards running
-    MoveDownward;
 }
 
 @keyframes MoveUpward {
@@ -74,22 +64,6 @@ body {
   100% {
     transform: translateY(0);
   }
-}
-
-@keyframes MoveDownward {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(100%);
-  }
-}
-
-.aspect-box::before {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-  width: 100%;
 }
 
 @media (min-width: 1024px)  {

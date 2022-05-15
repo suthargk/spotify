@@ -18,17 +18,15 @@ const MaximizePlayer = ({
   return (
     <div
       data-active={isPlayerMaximize}
-      className="maximize-player h-full w-full bg-gray-800 p-5 flex flex-col justify-center"
+      className="maximize-player absolute top-0 left-0 bottom-0 right-0 h-full w-full bg-gray-800 p-5 flex flex-col justify-center lg:relative "
     >
-      <div className="w-11/12 mx-auto space-y-6">
+      <div className="mx-auto space-y-6">
         <div onClick={() => onPlayerMaximize(false)}>
-          <div className="mb-12 shadow-xl relative overflow-hidden aspect-box">
-            <span className="block absolute top-0 left-0 w-full h-full">
-              <img
-                src={photo}
-                className="block w-full h-full object-cover object-center"
-              />
-            </span>
+        <div className="mb-12 flex justify-center">
+            <img
+              src={photo}
+              className="shadow-xl aspect-square"
+            />
           </div>
           <div className="text-3xl font-semibold mb-2">{title}</div>
           <div className="text-base font-semibold">{artist}</div>

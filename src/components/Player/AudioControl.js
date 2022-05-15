@@ -25,7 +25,7 @@ const AudioControl = ({
           step="1"
           min="0"
           max={duration ? duration : `${duration}`}
-          className="w-full h-1"
+          className="w-full h-1.5"
           onChange={(e) => onScrub(e.target.value)}
           onMouseUp={onScrubEnd}
         />

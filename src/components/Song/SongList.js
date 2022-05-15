@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, memo} from "react";
 import Song from "./Song";
 import LoadingIcon from "../../icon/LoadingIcon";
 
-const SongList = ({ onSongSelected, selectedSong, songsList: {loading, error, data} }) => {
+const SongList = memo(({ onSongSelected, selectedSong, songsList: {loading, error, data} }) => {
   if (loading)
     return (
       <div className="flex flex-1 justify-center items-center w-full">
@@ -19,6 +19,6 @@ const SongList = ({ onSongSelected, selectedSong, songsList: {loading, error, da
       </ul>
 
   );
-};
+});
 
 export default SongList;

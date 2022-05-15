@@ -9,6 +9,7 @@ import SearchSong from "./components/Song/SearchSong";
 import SongList from "./components/Song/SongList";
 import MinimizePlayer from "./components/Player/MinimizePlayer";
 import MaximizePlayer from "./components/Player/MaximizePlayer";
+import { data } from "autoprefixer";
 
 const App = () => {
   const playLists = useQuery(GET_PLAYLISTS);
@@ -23,13 +24,17 @@ const App = () => {
   });
   const songs = useSongs(isActive.id);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSong, setCurrentSong] = useState({});
+  const [currentSong, setCurrentSong] = useState(JSON.parse(localStorage.getItem('currentSong')) ?? {});
   const [isPlayerMaximize, setIsPlayerMaximize] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem('currentSong', JSON.stringify(currentSong));
+  }, [currentSong])
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value)
-  }
+    setSearchTerm(event.target.value);
+  };
 
   const onPlayListSelect = useCallback(
     (playListName) => {
@@ -38,9 +43,9 @@ const App = () => {
     [isActive]
   );
 
-  const onSongSelected = (songDetails) => {
+  const onSongSelected = useCallback((songDetails) => {
     setCurrentSong(songDetails);
-  };
+  }, [songs]);
 
   const toFindPrevAndNextTrack = useCallback(() => {
     const songsData = songs.data.getSongs;
@@ -92,14 +97,12 @@ const App = () => {
   };
 
   const onScrub = (value) => {
-    // Clear any timers already running
     clearInterval(intervalRef.current);
     audioRef.current.currentTime = value;
     setTrackProgress(audioRef.current.currentTime);
   };
 
   const onScrubEnd = () => {
-    // If not already playing, start
     if (!isPlaying) {
       setIsPlaying(true);
     }
@@ -115,10 +118,8 @@ const App = () => {
     }
   }, [isPlaying]);
 
-  // Handles cleanup and setup when changing tracks
   useEffect(() => {
     audioRef.current.pause();
-
     audioRef.current = new Audio(currentSong?.url);
     setTrackProgress(audioRef.current.currentTime);
 
@@ -127,19 +128,16 @@ const App = () => {
       setIsPlaying(true);
       startTimer();
     } else {
-      // Set the isReady ref as true for the next pass
       isReady.current = true;
     }
   }, [currentSong]);
 
   useEffect(() => {
-    // Pause and clean up on unmount
     return () => {
       audioRef.current.pause();
       clearInterval(intervalRef.current);
     };
   }, []);
-
 
   if (playLists.loading)
     return (
@@ -161,8 +159,10 @@ const App = () => {
         />
       </div>
       <div className="body flex flex-1 overflow-y-auto w-full lg:basis-2/6 flex-col lg:space-y-6">
-        <div className="hidden lg:block text-2xl font-semibold tracking-wide">{isActive.title}</div>
-      <SearchSong />
+        <div className="hidden lg:block text-2xl font-semibold tracking-wide w-full p-4 pt-0">
+          {isActive.title}
+        </div>
+        <SearchSong searchTerm={searchTerm} onHandleChange={handleChange} />
         <SongList
           songsList={songs}
           onSongSelected={onSongSelected}
@@ -171,7 +171,9 @@ const App = () => {
       </div>
 
       <div className="footer lg:basis-3/6">
-        {isPlayerMaximize && currentSong ? (
+      <div className="hidden lg:block w-full p-6 m-3">
+        </div>
+        {isPlayerMaximize ? (
           <MaximizePlayer
             isPlayerMaximize={isPlayerMaximize}
             onPlayerMaximize={setIsPlayerMaximize}
@@ -184,15 +186,16 @@ const App = () => {
             duration={duration}
             onScrub={onScrub}
             onScrubEnd={onScrubEnd}
-
           />
         ) : (
-          <MinimizePlayer
-            onPlayerMaximize={setIsPlayerMaximize}
-            currentSong={currentSong}
-            isPlaying={isPlaying}
-            onPlaying={setIsPlaying}
-          />
+          Object.keys(currentSong).length !== 0 && (
+            <MinimizePlayer
+              onPlayerMaximize={setIsPlayerMaximize}
+              currentSong={currentSong}
+              isPlaying={isPlaying}
+              onPlaying={setIsPlaying}
+            />
+          )
         )}
       </div>
     </div>

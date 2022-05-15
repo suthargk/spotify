@@ -6,11 +6,10 @@ const SearchSong = ({
   id = "search",
   type = "text",
   searchTerm,
-  onHandleChange
+  onHandleChange,
 }) => {
   return (
     <div className="w-full p-4 pt-0 my-4">
-      <form className="w-full" onSubmit={onSearchSongSubmit}>
         <label htmlFor={id}></label>
         <div className="relative flex justify-between bg-gray-800 items-center rounded-md p-1 w-full border border-gray-800 focus-within:outline focus-within:outline-2 focus-within:outline-blue-500">
           <input
@@ -21,11 +20,8 @@ const SearchSong = ({
             type={type}
             placeholder="Search Song, Artist"
           ></input>
-          <button type="submit">
             <SearchIcon className="h-5 w-5 mr-1 text-gray-400" />
-          </button>
         </div>
-      </form>
     </div>
   );
 };
