@@ -152,8 +152,8 @@ const App = () => {
           onPlayListSelect={onPlayListSelect}
         />
       </div>
-      <SearchSong searchTerm={searchTerm} onHandleChange={handleChange}/>
-      <div className="body lg:basis-2/6 flex flex-1 overflow-y-auto w-full lg:flex-col lg:space-y-6">
+      <SearchSong />
+      <div className="body flex flex-1 overflow-y-auto w-full lg:basis-2/6 lg:flex-col lg:space-y-6">
         <div className="hidden lg:block text-2xl font-semibold tracking-wide">{isActive.title}</div>
         <SongList
           songsList={songs}

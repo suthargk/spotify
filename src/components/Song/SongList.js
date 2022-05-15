@@ -11,7 +11,7 @@ const SongList = ({ onSongSelected, selectedSong, songsList: {loading, error, da
     );
   return (
       <ul
-        className="overflow-y-scroll p-4 pt-0 space-y-4"
+        className="overflow-y-scroll w-full p-4 pt-0 space-y-4"
       >
         {data?.getSongs?.map((song) => (
           <Song onSongSelected={onSongSelected} key={song._id} song={song} selectedSong={selectedSong}/>
