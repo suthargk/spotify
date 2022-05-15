@@ -14,6 +14,7 @@ const AudioControl = ({
   trackProgress,
   duration,
   onScrub,
+  onScrubEnd
 }) => {
   return (
     <div className="w-full space-y-4">
@@ -26,6 +27,7 @@ const AudioControl = ({
           max={duration ? duration : `${duration}`}
           className="w-full h-1"
           onChange={(e) => onScrub(e.target.value)}
+          onMouseUp={onScrubEnd}
         />
 
       </div>

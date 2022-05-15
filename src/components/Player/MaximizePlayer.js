@@ -13,6 +13,7 @@ const MaximizePlayer = ({
   trackProgress,
   duration,
   onScrub,
+  onScrubEnd
 }) => {
   return (
     <div
@@ -41,6 +42,7 @@ const MaximizePlayer = ({
             trackProgress={trackProgress}
             duration={duration}
             onScrub={onScrub}
+            onScrubEnd={onScrubEnd}
           />
         </div>
       </div>

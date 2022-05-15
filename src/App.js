@@ -98,6 +98,14 @@ const App = () => {
     setTrackProgress(audioRef.current.currentTime);
   };
 
+  const onScrubEnd = () => {
+    // If not already playing, start
+    if (!isPlaying) {
+      setIsPlaying(true);
+    }
+    startTimer();
+  };
+
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
@@ -152,9 +160,9 @@ const App = () => {
           onPlayListSelect={onPlayListSelect}
         />
       </div>
-      <SearchSong />
-      <div className="body flex flex-1 overflow-y-auto w-full lg:basis-2/6 lg:flex-col lg:space-y-6">
+      <div className="body flex flex-1 overflow-y-auto w-full lg:basis-2/6 flex-col lg:space-y-6">
         <div className="hidden lg:block text-2xl font-semibold tracking-wide">{isActive.title}</div>
+      <SearchSong />
         <SongList
           songsList={songs}
           onSongSelected={onSongSelected}
@@ -175,6 +183,7 @@ const App = () => {
             trackProgress={trackProgress}
             duration={duration}
             onScrub={onScrub}
+            onScrubEnd={onScrubEnd}
 
           />
         ) : (
