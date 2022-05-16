@@ -1,8 +1,8 @@
 import {gql, useQuery} from '@apollo/client'
 
 export const GET_SONGS =  gql`
-query ExampleQuery($playlistId: Int!) {
-    getSongs(playlistId: $playlistId) {
+query ExampleQuery($playlistId: Int!, $search: String ) {
+    getSongs(playlistId: $playlistId, search: $search) {
       _id
       title
       photo
@@ -14,10 +14,11 @@ query ExampleQuery($playlistId: Int!) {
   
 `
 
-export const useSongs = (id) => {
+export const useSongs = (id, search) => {
   const songs =  useQuery(GET_SONGS, {
        variables: {
-        "playlistId": id
+        "playlistId": id,
+        "search": search
        }
    })
    return songs

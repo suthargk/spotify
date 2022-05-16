@@ -21,13 +21,13 @@ const App = () => {
       }
     );
   });
-  const songs = useSongs(isActive.id);
+  const [searchTerm, setSearchTerm] = useState("");
+  const songs = useSongs(isActive.id, searchTerm);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(
     JSON.parse(localStorage.getItem("currentSong")) ?? {}
   );
   const [isPlayerMaximize, setIsPlayerMaximize] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [trackProgress, setTrackProgress] = useState(0);
   const audioRef = useRef(new Audio(currentSong?.url));
   const intervalRef = useRef();
