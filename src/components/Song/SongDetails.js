@@ -5,7 +5,7 @@ const SongDetails = ({ artist, photo, title, songItemRef, songItemWidth }) => {
   return (
     <div ref={songItemRef}  className="flex items-center space-x-4">
       <div className="">
-        <img src={photo} className="h-14 w-14 rounded-full" alt={title} />
+        <img src={photo} className="h-14 w-14 rounded-full" alt={title} draggable="false" />
       </div>
       <div className="flex flex-col">
         <span className="text-gray-100 text-base font-light capitalize tracking-wider">

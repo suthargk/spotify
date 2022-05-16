@@ -1,8 +1,8 @@
-import React from "react";
+import React, {memo} from "react";
 import SearchIcon from "../../icon/SearchIcon";
 import CloseIcon from "../../icon/CloseIcon";
 
-const SearchSong = ({
+const SearchSong = memo(({
   onSearchSongSubmit = (f) => f,
   id = "search",
   type = "text",
@@ -10,6 +10,7 @@ const SearchSong = ({
   onHandleChange,
   setSearchTerm,
 }) => {
+  console.log("JJ")
   return (
     <div className="w-full p-4 pt-0 my-4">
       <label htmlFor={id}></label>
@@ -34,6 +35,6 @@ const SearchSong = ({
       </div>
     </div>
   );
-};
+});
 
 export default SearchSong;

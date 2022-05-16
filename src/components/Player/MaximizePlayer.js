@@ -38,6 +38,7 @@ const MaximizePlayer = ({
             <img
               src={photo}
               className="shadow-xl h-80	w-80 rounded-md aspect-square lg:w-full lg:h-auto"
+              draggable="false"
             />
           </div>
           <div className="lg:hidden text-3xl font-semibold mb-2">{title}</div>

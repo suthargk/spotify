@@ -38,9 +38,9 @@ const App = () => {
     localStorage.setItem("currentSong", JSON.stringify(currentSong));
   }, [currentSong]);
 
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     setSearchTerm(event.target.value);
-  };
+  }, [searchTerm]);
 
   const onPlayListSelect = useCallback(
     (playListName) => {
@@ -49,12 +49,9 @@ const App = () => {
     [isActive]
   );
 
-  const onSongSelected = useCallback(
-    (songDetails) => {
+  const onSongSelected = useCallback((songDetails) => {
       setCurrentSong(songDetails);
-    },
-    [songs]
-  );
+    },[songs]);
 
   const toFindPrevAndNextTrack = useCallback(() => {
     const songsData = songs.data.getSongs;
