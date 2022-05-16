@@ -33,7 +33,7 @@ const SongList = memo(
         {!filteredData.length ? (
           <SongsNotFound searchTerm={searchTerm} />
         ) : (
-          <ul className="overflow-y-scroll w-full p-4 pt-0 space-y-4">
+          <ul className="song-list overflow-y-scroll w-full p-4 pt-0 space-y-4">
             {filteredData.map((song) => (
               <Song
                 onSongSelected={onSongSelected}
