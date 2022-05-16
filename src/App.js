@@ -28,6 +28,7 @@ const App = () => {
   const [isPlayerMaximize, setIsPlayerMaximize] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
   const audioRef = useRef(new Audio(currentSong?.url));
+  audioRef.current.load()
   const intervalRef = useRef();
   const isReady = useRef(false);
   const { duration } = audioRef.current;
@@ -115,6 +116,7 @@ const App = () => {
   useEffect(() => {
     audioRef.current.pause();
     audioRef.current = new Audio(currentSong?.url);
+    audioRef.current.load()
     setTrackProgress(audioRef.current.currentTime);
 
     if (isReady.current) {
