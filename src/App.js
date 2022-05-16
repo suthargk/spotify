@@ -105,7 +105,6 @@ const App = () => {
 
   useEffect(() => {
     if (isPlaying) {
-      audioRef.current.load()
       audioRef.current.play();
       startTimer();
     } else {
@@ -116,11 +115,10 @@ const App = () => {
   useEffect(() => {
     audioRef.current.pause();
     audioRef.current = new Audio(currentSong?.url);
-    audioRef.current.load()
+
     setTrackProgress(audioRef.current.currentTime);
 
     if (isReady.current) {
-      audioRef.load()
       audioRef.current.play();
       setIsPlaying(true);
       startTimer();
@@ -138,7 +136,7 @@ const App = () => {
 
   if (playLists.loading)
     return (
-      <div className="flex items-center h-full w-full">
+      <div className="flex items-center justify-center h-full w-full">
         <LoadingIcon />
       </div>
     );
