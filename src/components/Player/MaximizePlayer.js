@@ -1,6 +1,7 @@
 import React from "react";
 
 import AudioControl from "./AudioControl";
+import CaretDownIcon from '../../icon/CaretDownIcon'
 
 const MaximizePlayer = ({
   isPlayerMaximize,
@@ -22,6 +23,7 @@ const MaximizePlayer = ({
     >
       <div className="mx-auto space-y-6">
         <div onClick={() => onPlayerMaximize(false)}>
+          <div className="mb-4"><CaretDownIcon /></div>
         <div className="mb-12 flex justify-center">
             <img
               src={photo}

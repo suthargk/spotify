@@ -9,7 +9,6 @@ import SearchSong from "./components/Song/SearchSong";
 import SongList from "./components/Song/SongList";
 import MinimizePlayer from "./components/Player/MinimizePlayer";
 import MaximizePlayer from "./components/Player/MaximizePlayer";
-import { data } from "autoprefixer";
 
 const App = () => {
   const playLists = useQuery(GET_PLAYLISTS);
@@ -24,13 +23,20 @@ const App = () => {
   });
   const songs = useSongs(isActive.id);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSong, setCurrentSong] = useState(JSON.parse(localStorage.getItem('currentSong')) ?? {});
+  const [currentSong, setCurrentSong] = useState(
+    JSON.parse(localStorage.getItem("currentSong")) ?? {}
+  );
   const [isPlayerMaximize, setIsPlayerMaximize] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [trackProgress, setTrackProgress] = useState(0);
+  const audioRef = useRef(new Audio(currentSong?.url));
+  const intervalRef = useRef();
+  const isReady = useRef(false);
+  const { duration } = audioRef.current;
 
   useEffect(() => {
-    localStorage.setItem('currentSong', JSON.stringify(currentSong));
-  }, [currentSong])
+    localStorage.setItem("currentSong", JSON.stringify(currentSong));
+  }, [currentSong]);
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
@@ -43,9 +49,12 @@ const App = () => {
     [isActive]
   );
 
-  const onSongSelected = useCallback((songDetails) => {
-    setCurrentSong(songDetails);
-  }, [songs]);
+  const onSongSelected = useCallback(
+    (songDetails) => {
+      setCurrentSong(songDetails);
+    },
+    [songs]
+  );
 
   const toFindPrevAndNextTrack = useCallback(() => {
     const songsData = songs.data.getSongs;
@@ -77,12 +86,6 @@ const App = () => {
       }
     });
   }, [currentSong]);
-
-  const [trackProgress, setTrackProgress] = useState(0);
-  const audioRef = useRef(new Audio(currentSong?.url));
-  const intervalRef = useRef();
-  const isReady = useRef(false);
-  const { duration } = audioRef.current;
 
   const startTimer = () => {
     clearInterval(intervalRef.current);
@@ -149,7 +152,7 @@ const App = () => {
   return (
     <div className="bg-gray-900 rounded-md lg:rounded-none shadow-md relative h-full flex flex-col lg:flex-row lg:p-8 lg:pb-0 lg:space-x-12">
       <div className="header lg:basis-1/6">
-        <div className="hidden lg:block">
+        <div className="hidden lg:block lg:px-4 lg:ml-2 lg:-mt-2">
           <Logo />
         </div>
         <NavigationList
@@ -162,8 +165,9 @@ const App = () => {
         <div className="hidden lg:block text-2xl font-semibold tracking-wide w-full p-4 pt-0">
           {isActive.title}
         </div>
-        <SearchSong searchTerm={searchTerm} onHandleChange={handleChange} />
+        <SearchSong searchTerm={searchTerm} onHandleChange={handleChange} setSearchTerm={setSearchTerm}/>
         <SongList
+          searchTerm={searchTerm}
           songsList={songs}
           onSongSelected={onSongSelected}
           selectedSong={currentSong}
@@ -171,8 +175,7 @@ const App = () => {
       </div>
 
       <div className="footer lg:basis-3/6">
-      <div className="hidden lg:block w-full p-6 m-3">
-        </div>
+        <div className="hidden lg:block w-full p-6 m-3"></div>
         {isPlayerMaximize ? (
           <MaximizePlayer
             isPlayerMaximize={isPlayerMaximize}

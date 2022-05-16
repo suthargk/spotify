@@ -2,7 +2,6 @@ import React, { useEffect} from "react";
 
 
 const SongDetails = ({ artist, photo, title, songItemRef, songItemWidth }) => {
-  console.log(songItemWidth)
   return (
     <div ref={songItemRef}  className="flex items-center space-x-4">
       <div className="">
