@@ -150,7 +150,7 @@ const App = () => {
     );
 
   return (
-    <div className="bg-gray-900 rounded-md lg:rounded-none shadow-md relative h-full flex flex-col lg:flex-row lg:p-8 lg:pb-0 lg:space-x-12">
+    <div className="bg-gray-900 rounded-md lg:rounded-none shadow-md relative h-full flex flex-col lg:flex-row lg:p-8 lg:space-x-12">
       <div className="header lg:basis-1/6">
         <div className="hidden lg:block lg:px-4 lg:ml-2 lg:-mt-2">
           <Logo />
@@ -176,6 +176,21 @@ const App = () => {
 
       <div className="footer lg:basis-3/6">
         <div className="hidden lg:block w-full p-6 m-3"></div>
+        <div className="hidden lg:block">
+        <MaximizePlayer
+            isPlayerMaximize={isPlayerMaximize}
+            onPlayerMaximize={setIsPlayerMaximize}
+            currentSong={currentSong}
+            onPrevTrack={toPrevTrack}
+            onNextTrack={toNextTrack}
+            isPlaying={isPlaying}
+            onPlaying={setIsPlaying}
+            trackProgress={trackProgress}
+            duration={duration}
+            onScrub={onScrub}
+            onScrubEnd={onScrubEnd}
+          />
+        </div>
         {isPlayerMaximize ? (
           <MaximizePlayer
             isPlayerMaximize={isPlayerMaximize}

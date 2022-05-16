@@ -16,7 +16,7 @@ const Song = ({
 
   return (
     <li ref={songItemRef}  data-active={selectedSong.title === title}
-      className="song-item style-none cursor-pointer p-2 lg:hover:bg-gray-800 lg:hover:rounded-md"
+      className="song-item style-none cursor-pointer p-2 transition duration-150 lg:hover:bg-gray-800 lg:hover:rounded-md"
       onClick={() => onSongSelected({ artist, duration, photo, title, url, _id })}
     >
       <div className="flex justify-between items-center">

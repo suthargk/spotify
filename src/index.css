@@ -72,6 +72,9 @@ body {
     background-color: unset;
     border: none;
   }
+  .navigation-item[data-active="true"]:hover {
+    color: #fff;
+  }
   .song-item[data-active="true"]:hover {
     background-color: rgb(55 65 81);
   }

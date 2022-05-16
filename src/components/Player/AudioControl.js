@@ -17,8 +17,8 @@ const AudioControl = ({
   onScrubEnd
 }) => {
   return (
-    <div className="w-full space-y-4">
-      <div>
+    <div className="w-full space-y-4 lg:space-y-8">
+      <div className="flex justify-center items-center">
       <input
           type="range"
           value={trackProgress}
