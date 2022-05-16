@@ -50,26 +50,15 @@ body {
   animation: 2s linear 0s infinite normal none running Spinner;
 }
 
-@keyframes Spinner {
-  100% {
-    transform: rotate(360deg);
-  }
-}
+
 
 .maximize-player[data-active="true"] {
   animation: cubic-bezier(0.3, 0, 0, 1) 0.2s 1 normal forwards running
     MoveUpward;
 }
 
-@keyframes MoveUpward {
-  0% {
-    transform: translateY(100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
 
+/* Media Queries */
 @media (min-width: 1024px)  {
   .navigation-item[data-active="true"] {
     color: #fff;
@@ -81,5 +70,22 @@ body {
   }
   .song-item[data-active="true"]:hover {
     background-color: rgb(55 65 81);
+  }
+}
+
+/* Keyframes */
+
+@keyframes MoveUpward {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes Spinner {
+  100% {
+    transform: rotate(360deg);
   }
 }
