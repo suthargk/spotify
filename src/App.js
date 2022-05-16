@@ -24,19 +24,13 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const songs = useSongs(isActive.id, searchTerm);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSong, setCurrentSong] = useState(
-    JSON.parse(localStorage.getItem("currentSong")) ?? {}
-  );
+  const [currentSong, setCurrentSong] = useState({});
   const [isPlayerMaximize, setIsPlayerMaximize] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
   const audioRef = useRef(new Audio(currentSong?.url));
   const intervalRef = useRef();
   const isReady = useRef(false);
   const { duration } = audioRef.current;
-
-  useEffect(() => {
-    localStorage.setItem("currentSong", JSON.stringify(currentSong));
-  }, [currentSong]);
 
   const handleChange = useCallback((event) => {
     setSearchTerm(event.target.value);

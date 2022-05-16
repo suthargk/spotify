@@ -2,6 +2,7 @@ import React from "react";
 
 import AudioControl from "./AudioControl";
 import CaretDownIcon from "../../icon/CaretDownIcon";
+import NoSong from "../../icon/NoSong";
 
 const MaximizePlayer = ({
   isPlayerMaximize,
@@ -35,11 +36,11 @@ const MaximizePlayer = ({
             <CaretDownIcon />
           </div>
           <div className="mb-12 lg:mb-6 flex justify-center">
-            <img
+           {photo ?  <img
               src={photo}
               className="shadow-xl h-80	w-80 rounded-md aspect-square lg:w-full lg:h-auto"
               draggable="false"
-            />
+            /> : <span className="shadow-xl h-80	w-80 rounded-md aspect-square lg:w-full lg:h-auto"><NoSong className=""/></span>}
           </div>
           <div className="lg:hidden text-3xl font-semibold mb-2">{title}</div>
           <div className="lg:hidden text-base font-semibold">{artist}</div>
@@ -54,6 +55,7 @@ const MaximizePlayer = ({
             duration={duration}
             onScrub={onScrub}
             onScrubEnd={onScrubEnd}
+            title={title}
           />
         </div>
       </div>

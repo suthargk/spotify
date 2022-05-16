@@ -14,12 +14,13 @@ const AudioControl = ({
   trackProgress,
   duration,
   onScrub,
-  onScrubEnd
+  onScrubEnd,
+  title,
 }) => {
   return (
     <div className="w-full space-y-4 lg:space-y-8">
       <div className="flex justify-center items-center">
-      <input
+        <input
           type="range"
           value={trackProgress}
           step="1"
@@ -28,30 +29,34 @@ const AudioControl = ({
           className="w-full h-1.5"
           onChange={(e) => onScrub(e.target.value)}
           onMouseUp={onScrubEnd}
+          disabled={!title}
         />
-
       </div>
       <div className="flex justify-between items-center">
-        <div>
-          <button type="button">
+        <div className="audio-control-buttons">
+          <button type="button" disabled={!title}>
             <OptionIcon />
           </button>
         </div>
 
-        <div className="flex items-center space-x-5">
-          <button type="button" onClick={onPrevTrack}>
+        <div className="audio-control-buttons flex items-center space-x-5">
+          <button type="button" onClick={onPrevTrack} disabled={!title}>
             <PrevIcon />
           </button>
-          <button type="button" onClick={() => onPlaying(!isPlaying)}>
+          <button
+            type="button text-gray-800"
+            onClick={() => onPlaying(!isPlaying)}
+            disabled={!title}
+          >
             {isPlaying ? <PauseMaximizeIcon /> : <PlayMaximizeIcon />}
           </button>
-          <button type="button" onClick={onNextTrack}>
+          <button type="button" onClick={onNextTrack} disabled={!title}>
             <NextIcon />
           </button>
         </div>
 
-        <div>
-          <button type="button">
+        <div className="audio-control-buttons">
+          <button type="button" disabled={!title}>
             <VolumeIcon />
           </button>
         </div>

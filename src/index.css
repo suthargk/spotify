@@ -41,6 +41,10 @@ body {
   border-radius: 0.375rem;
 }
 
+.audio-control-buttons button:disabled svg {
+  color: rgb(107 114 128);
+}
+
 .loading {
   color: #fff;
   animation: 2s linear 0s infinite normal none running Spinner;

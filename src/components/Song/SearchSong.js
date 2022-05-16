@@ -25,7 +25,7 @@ const SearchSong = memo(({
         ></input>
         {searchTerm.length ? (
           <span onClick={() => setSearchTerm("")}>
-            <CloseIcon className="h-6 w-6 lg:h-7 lg:h-7 text-gray-400" />
+            <CloseIcon className="h-6 w-6 lg:w-7 lg:h-7 text-gray-400" />
           </span>
         ) : (
           <span>
