@@ -32,7 +32,7 @@ const MaximizePlayer = ({
               {artist}
             </div>
           </div>
-          <div className="block mb-4 lg:hidden">
+          <div className="block mx-4 lg:hidden">
             <CaretDownIcon />
           </div>
           <div className="mb-12 lg:mb-6 flex justify-center">

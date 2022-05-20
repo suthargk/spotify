@@ -10,7 +10,6 @@ const SearchSong = memo(({
   onHandleChange,
   setSearchTerm,
 }) => {
-  console.log("JJ")
   return (
     <div className="w-full p-4 pt-0 my-4">
       <label htmlFor={id}></label>
